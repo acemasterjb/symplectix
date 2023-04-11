@@ -1,7 +1,7 @@
 # Implementation of the Symplectic Method
 
 ## QR Algorithm
-This program uses the Givens Rotation method for calculating the QR Decomposition of a given matrix `A` s.t.:
+This program uses the [Givens Rotation](https://en.wikipedia.org/wiki/Givens_rotation) method for calculating the QR Decomposition of a given matrix `A` s.t.:
 
 **A = QR**
 
