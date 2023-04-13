@@ -1,11 +1,7 @@
-from math import sqrt
-from pprint import PrettyPrinter
+from math import copysign, sqrt
 from typing import Tuple
 
 import numpy as np
-
-
-pp = PrettyPrinter(2)
 
 
 def build_QR(
@@ -53,7 +49,7 @@ def apply_givens_rotation(
 
     numerator: float = 0.0
     if abs(largest_component) > 0:
-        numerator = 1.0 if largest_component > 0 else -1.0
+        numerator = copysign(1.0, largest_component)
 
     return get_givens_components(component_j, component_i, numerator, j_is_larger)
 
@@ -61,29 +57,29 @@ def apply_givens_rotation(
 def main():
     example_matrix: np.ndarray = np.array(
         [
-            [0.8147, 0.0975, 0.1576],
-            [0.9058, 0.2785, 0.9706],
-            [0.1270, 0.5469, 0.9572],
-            [0.9134, 0.9575, 0.4854],
-            [0.6324, 0.9649, 0.8003],
+            [1, 2, 3],
+            [-1, 1, 1],
+            [1, 1, 1],
+            [1, 1, 1]
         ]
     )
 
     Q = np.identity(example_matrix.shape[0])
     R = example_matrix.copy()
+    del example_matrix
+
     row_padding = 0
     for column in range(R.shape[1]):
         for row in range(R.shape[0] - 1, row_padding, -1):
-        for row in range(R.shape[0] - 1, 0, -1):
-            c, s = apply_givens_rotation(
-                R[row][column], R[row - 1][column]
-            )
+            a = R[row - 1][column]
+            b = R[row][column]
+            c, s = apply_givens_rotation(b, a)
+
             Q_mn, R = build_QR(R, row, c, s)
-
-
-
             Q = Q.dot(Q_mn)
         row_padding += 1
+
+    print(f"Q:\n{Q}\n\nR:\n{R}")
 
 
 if __name__ == "__main__":
