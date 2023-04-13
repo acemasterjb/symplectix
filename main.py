@@ -71,15 +71,19 @@ def main():
 
     Q = np.identity(example_matrix.shape[0])
     R = example_matrix.copy()
-    del example_matrix
+    row_padding = 0
     for column in range(R.shape[1]):
+        for row in range(R.shape[0] - 1, row_padding, -1):
         for row in range(R.shape[0] - 1, 0, -1):
             c, s = apply_givens_rotation(
                 R[row][column], R[row - 1][column]
             )
             Q_mn, R = build_QR(R, row, c, s)
 
-            Q = Q * Q_mn
+
+
+            Q = Q.dot(Q_mn)
+        row_padding += 1
 
 
 if __name__ == "__main__":
