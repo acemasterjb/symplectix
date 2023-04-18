@@ -8,13 +8,19 @@ This program uses the [Givens Rotation](https://en.wikipedia.org/wiki/Givens_rot
 after running `A` on a QR decomposition algorithm.
 
 For now, only an example matrix from [James V. Lamber's class notes](https://www.math.usm.edu/lambers/mat610/class0208.pdf) is used to demonstrate this algorithm.
+
+---
 ### Prerequisites
-- Python >= 3.10.x
-### Installation
+- Rust >= 1.67.1
+### Usage Instructions (testing)
 ```bash
-pip install -r "./requirements.txt"
+cargo run
 ```
-### Usage
+### Build Instructions
 ```bash
-python main.py
+cargo build -r
+```
+Then the compiled program can be run with
+```bash
+./target/release/symplectix
 ```
