@@ -1,5 +1,4 @@
 use ndarray::prelude::*;
-use ndarray_linalg::Determinant;
 
 mod formulae;
 use crate::formulae::*;
@@ -41,12 +40,7 @@ fn main() {
 
     (r, q) = find_qr_decomposition_of(&example_matrix);
 
-    let r_det: f64 = r.det().unwrap_or_default();
-    let example_matrix_det: f64 = example_matrix.det().unwrap_or_default();
-
     println!("Q:\n{q}\n\nR:\n{r}");
-    println!("\n\ndet(R): {r_det}");
-    println!("det(A): {example_matrix_det}");
 }
 
 #[cfg(test)]
@@ -68,7 +62,7 @@ mod tests {
             aclose(
                 r.det().unwrap_or_default(),
                 test_case.det().unwrap_or_default(),
-                1e-5,
+                1e-6,
             )
         }
     }
